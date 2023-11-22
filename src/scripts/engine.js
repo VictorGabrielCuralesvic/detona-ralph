@@ -11,12 +11,23 @@ const state = {
         gameVelocity: 700,
         hitPosition: 0,
         result: 0,
-        curretTime: 500,
+        curretTime: 15,
     },
     actions: {
         countDownTimerId: setInterval(countDown, 1000),
         timerId: setInterval(randomSquare, 1000)
     }
+};
+
+function countDown() {
+    state.values.curretTime--;
+    state.view.timeLeft.textContent = state.values.curretTime;
+
+    if (state.values.curretTime <= (-1)) {
+        clearInterval(state.actions.countDownTimerId);
+        clearInterval(state.actions.timerId);
+        alert(`Game Over! O seu resultado foi: ${state.values.result}`);
+    };
 };
 
 function randomSquare() {
@@ -49,6 +60,7 @@ function addListenerHitBox() {
 function init() {
     /* moveEnemy(); */
     addListenerHitBox();
+/*     countDown(); */
 };
 
 init();
