@@ -7,11 +7,16 @@ const state = {
         score: document.querySelector("#score"),
     },
     values: {
-        timerId: null,
+        /* timerId: null, */
         gameVelocity: 700,
         hitPosition: 0,
         result: 0,
+        curretTime: 500,
     },
+    actions: {
+        countDownTimerId: setInterval(countDown, 1000),
+        timerId: setInterval(randomSquare, 1000)
+    }
 };
 
 function randomSquare() {
@@ -25,9 +30,9 @@ function randomSquare() {
     state.values.hitPosition = randomSquare.id;
 };
 
-function moveEnemy() {
+/* function moveEnemy() {
     state.values.timerId = setInterval(randomSquare, state.values.gameVelocity)
-};
+}; */
 
 function addListenerHitBox() {
     state.view.squares.forEach((square) => {
@@ -42,7 +47,7 @@ function addListenerHitBox() {
 };
 
 function init() {
-    moveEnemy();
+    /* moveEnemy(); */
     addListenerHitBox();
 };
 
