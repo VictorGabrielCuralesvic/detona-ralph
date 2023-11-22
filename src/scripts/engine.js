@@ -7,13 +7,12 @@ const state = {
         score: document.querySelector("#score"),
     },
     values: {
-        timerId: null,
         hitPosition: 0,
         result: 0,
         curretTime: 60,
-        decrementValue: 200,
         scoreInterval: 10,
-        timerInterval: 1000,
+        gameVelocity: 1000,
+        velocityDecrement: 50,
     },
     actions: {
         countDownTimerId: setInterval(countDown, 1000),
@@ -29,6 +28,13 @@ function countDown() {
         clearInterval(state.actions.countDownTimerId);
         clearInterval(state.actions.timerId);
         alert(`Game Over! O seu resultado foi: ${state.values.result}`);
+    };
+};
+
+function enemyVelocity() {
+    if (state.values.result % state.values.scoreInterval === 0) {
+        state.actions.timerId = setInterval(randomSquare, state.values.gameVelocity);
+        state.values.gameVelocity -= state.values.velocityDecrement;
     };
 };
 
@@ -57,6 +63,7 @@ function addListenerHitBox() {
                 state.view.score.textContent = state.values.result;
                 state.values.hitPosition = null;
                 playSound("hit");
+                enemyVelocity();
             }
         });
     });
